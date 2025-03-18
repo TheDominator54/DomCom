@@ -4,22 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dominic Rand's Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Dominic Rand's personal website featuring writing, thoughts, and creative content.">
+    <meta name="keywords" content="Dominic Rand, writer, creator, blog">
+    <meta property="og:title" content="Dominic Rand's Website">
+    <meta property="og:description" content="Dominic Rand's personal website featuring writing, thoughts, and creative content.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #333;
-            color: white;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --dark-bg: #1a1a1a;
+            --card-bg: rgba(52, 73, 94, 0.7);
         }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg), var(--primary-color));
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-y: scroll; /* Ensure scrolling is enabled */
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
         h1 {
-            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .links-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .link-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .link-card i {
+            font-size: 1.5rem;
+        }
+        
+        .link-card span {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .embed-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .embed-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .embed-header {
+            padding: 15px 20px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .embed-header h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 510px;
+            border: none;
+            background: transparent;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .links-section {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .embed-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Hide scrollbar when not scrolling */
+        body::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+        
+        body {
+            -ms-overflow-style: none;  /* Internet Explorer and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
 <body>
-    <h1>Dominic Rand's Personal Website</h1>
-    <p>Look at this photo of my dad</p>
-    <img src="Photo_Dad.jpeg" alt="My Dad" style="width: 589px; height: 442px;">
+    <div class="container">
+        <header>
+            <h1>Dominic Rand</h1>
+            <p class="subtitle">Writer • Thinker • Creator</p>
+        </header>
+        
+        <div class="links-section">
+            <a href="https://www.instagram.com/domwillrand/" target="_blank" class="link-card">
+                <i class="fab fa-instagram"></i>
+                <span>Follow me on Instagram</span>
+            </a>
+            <a href="https://publish.obsidian.md/dom-rand/" target="_blank" class="link-card">
+                <i class="fas fa-book"></i>
+                <span>Read my Blog</span>
+            </a>
+        </div>
+        
+        <div class="embed-section">
+            <div class="embed-container">
+                <div class="embed-header">
+                    <i class="fab fa-instagram"></i>
+                    <h2>Instagram Feed</h2>
+                </div>
+                <iframe src="https://www.instagram.com/domwillrand/embed" allowtransparency="true" allowfullscreen="true"></iframe>
+            </div>
+            
+            <div class="embed-container">
+                <div class="embed-header">
+                    <i class="fas fa-book"></i>
+                    <h2>Latest Blog Post</h2>
+                </div>
+                <iframe src="https://publish.obsidian.md/dom-rand/" allowtransparency="true" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Dominic Rand. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
