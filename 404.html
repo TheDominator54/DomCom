@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    (function() {
+      var path = window.location.pathname.replace(/^\/+/, '');
+      var segments = path.split('/');
+      // If no slug or path is 'blog', let existing pages handle it
+      if (!segments[0] || segments[0].toLowerCase() === 'blog') {
+        return;
+      }
+      // Capitalize first letter of slug
+      var slug = segments[0];
+      var target = 'https://publish.obsidian.md/dom-rand/' + slug;
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting... If you are not redirected automatically, <a id="redirect-link" href="">click here</a>.</p>
+  <script>
+    var path = window.location.pathname.replace(/^\/+/, '');
+    var segments = path.split('/');
+    if (segments[0] && segments[0].toLowerCase() !== 'blog') {
+      var slug = segments[0];
+      var target = 'https://publish.obsidian.md/dom-rand/' + slug;
+      document.getElementById('redirect-link').href = target;
+      document.getElementById('redirect-link').textContent = target;
+    }
+  </script>
+</body>
+</html> 
