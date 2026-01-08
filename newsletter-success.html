@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check your email • Dominic Rand</title>
+    <meta name="description" content="Thanks for subscribing. Please confirm your email address to start receiving the newsletter.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --muted-text: #bdc3c7;
+            --dark-bg: #1a1a1a;
+            --card-bg: rgba(52, 73, 94, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top, #34495e 0, var(--dark-bg) 45%, #000 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 18px;
+            padding: 32px 26px 28px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: left;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--muted-text);
+            text-decoration: none;
+            margin-bottom: 14px;
+        }
+
+        .back-link i {
+            font-size: 0.8rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-color);
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--muted-text);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 3vw, 2.3rem);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .lede {
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            margin-top: 10px;
+            margin-bottom: 18px;
+        }
+
+        .steps p {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .steps ol {
+            margin: 4px 0 0 18px;
+            padding: 0;
+        }
+
+        .steps li {
+            margin-bottom: 6px;
+            font-size: 0.96rem;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--muted-text);
+            margin-top: 6px;
+        }
+
+        .icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .icon-circle i {
+            font-size: 1.3rem;
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: var(--muted-text);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 640px) {
+            .card {
+                padding: 36px 34px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to site
+        </a>
+        <main class="card" aria-labelledby="success-title">
+            <div class="icon-circle">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="eyebrow">Almost done</div>
+            <h1 id="success-title">Check your email to confirm.</h1>
+            <p class="lede">
+                Thanks for signing up. Before anything arrives, I need you to confirm that this email address is really yours.
+            </p>
+
+            <div class="steps">
+                <p>Here’s what to do:</p>
+                <ol>
+                    <li>Open the email I just sent you.</li>
+                    <li>Find the confirmation link inside.</li>
+                    <li>Click it to confirm your subscription.</li>
+                </ol>
+            </div>
+
+            <p class="note">
+                If you don’t see it in your inbox after a few minutes, check your spam or Promotions folder.  
+                You won’t receive any newsletters until you click the link.
+            </p>
+
+            <div class="footer">
+                &copy; 2025 Dominic Rand
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
