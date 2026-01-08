@@ -235,6 +235,85 @@
             }
         }
     </style>
+    <!-- Overrides to theme the MailerLite embed to match the site -->
+    <style>
+        #mlb2-35469270.ml-form-embedContainer {
+            width: 100% !important;
+        }
+
+        #mlb2-35469270 .ml-form-embedWrapper {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        #mlb2-35469270 .ml-form-embedBody,
+        #mlb2-35469270 .ml-form-successBody {
+            padding: 0 !important;
+        }
+
+        #mlb2-35469270 .ml-form-embedContent h4 {
+            color: var(--text-color) !important;
+            font-family: inherit !important;
+            font-size: 1.2rem !important;
+            margin-bottom: 6px !important;
+        }
+
+        #mlb2-35469270 .ml-form-embedContent p,
+        #mlb2-35469270 .ml-form-embedPermissionsContent p {
+            color: var(--muted-text) !important;
+            font-family: inherit !important;
+        }
+
+        #mlb2-35469270 .ml-form-horizontalRow {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        @media (max-width: 640px) {
+            #mlb2-35469270 .ml-form-horizontalRow {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        #mlb2-35469270 input[type="email"],
+        #mlb2-35469270 .form-control {
+            background-color: rgba(10, 10, 10, 0.65) !important;
+            color: var(--text-color) !important;
+            border-radius: 999px !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            box-shadow: none !important;
+        }
+
+        #mlb2-35469270 .form-control::placeholder {
+            color: rgba(236, 240, 241, 0.6) !important;
+        }
+
+        #mlb2-35469270 .ml-button-horizontal button.primary,
+        #mlb2-35469270 .ml-mobileButton-horizontal button.primary {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color)) !important;
+            border: none !important;
+            border-radius: 999px !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+            color: #fff !important;
+            font-family: inherit !important;
+        }
+
+        #mlb2-35469270 .ml-button-horizontal button.primary:hover,
+        #mlb2-35469270 .ml-mobileButton-horizontal button.primary:hover {
+            filter: brightness(1.05);
+        }
+
+        #mlb2-35469270 .ml-form-successBody .ml-form-successContent h4 {
+            color: var(--text-color) !important;
+        }
+
+        #mlb2-35469270 .ml-form-successBody .ml-form-successContent p {
+            color: var(--muted-text) !important;
+        }
+    </style>
 </head>
 <body>
     <div class="page">
