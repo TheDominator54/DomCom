@@ -1190,10 +1190,19 @@
                 </div>
 
                 <script>
+                  // Called by MailerLite after a successful form submission.
+                  // Redirects to the on-site confirmation page.
                   function ml_webform_success_35469270() {
-                    var $ = ml_jQuery || jQuery;
-                    $('.ml-subscribe-form-35469270 .row-success').show();
-                    $('.ml-subscribe-form-35469270 .row-form').hide();
+                    var redirectUrl = 'https://domrand.com/newsletter-success.html';
+                    try {
+                      if (window.top && window.top !== window) {
+                        window.top.location.href = redirectUrl;
+                        return;
+                      }
+                    } catch (e) {
+                      // fall back to current window
+                    }
+                    window.location.href = redirectUrl;
                   }
                 </script>
                 <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
