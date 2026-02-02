@@ -142,6 +142,10 @@
             background: transparent;
         }
         
+        .embed-container--podcast iframe {
+            height: 450px;
+        }
+        
         footer {
             text-align: center;
             margin-top: 50px;
@@ -198,17 +202,17 @@
                 <i class="fas fa-book"></i>
                 <span>Visit my Blog</span>
             </a>
-            <a href="newsletter.html" class="link-card">
-                <i class="fas fa-envelope-open-text"></i>
-                <span>Join the Newsletter</span>
-            </a>
             <a href="https://podcasts.apple.com/us/podcast/doms-blog/id1873856519" target="_blank" rel="noopener noreferrer" class="link-card">
                 <i class="fab fa-apple"></i>
                 <span>Apple Podcasts</span>
             </a>
             <a href="https://open.spotify.com/show/2qqTiLtaFwCP1ySpFmkBeF" target="_blank" rel="noopener noreferrer" class="link-card">
                 <i class="fab fa-spotify"></i>
-                <span>Spotify</span>
+                <span>Spotify Podcasts</span>
+            </a>
+            <a href="newsletter.html" class="link-card">
+                <i class="fas fa-envelope-open-text"></i>
+                <span>Join the Newsletter</span>
             </a>
         </div>
         
@@ -227,6 +231,22 @@
                     <h2>Blog Preview</h2>
                 </div>
                 <iframe src="https://publish.obsidian.md/dom-rand/" allowtransparency="true" allowfullscreen="true"></iframe>
+            </div>
+            
+            <div class="embed-container embed-container--podcast">
+                <div class="embed-header">
+                    <i class="fab fa-apple"></i>
+                    <h2>Apple Podcasts</h2>
+                </div>
+                <iframe src="https://embed.podcasts.apple.com/us/podcast/doms-blog/id1873856519" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            
+            <div class="embed-container embed-container--podcast">
+                <div class="embed-header">
+                    <i class="fab fa-spotify"></i>
+                    <h2>Spotify Podcasts</h2>
+                </div>
+                <iframe src="https://open.spotify.com/embed/show/2qqTiLtaFwCP1ySpFmkBeF?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
         
