@@ -107,6 +107,14 @@
             font-weight: 500;
         }
         
+        button.link-card {
+            cursor: pointer;
+            font: inherit;
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+        
         .embed-section {
             display: grid;
             grid-template-columns: 1fr;
@@ -184,6 +192,81 @@
             -ms-overflow-style: none;  /* Internet Explorer and Edge */
             scrollbar-width: none;  /* Firefox */
         }
+        
+        /* Podcast modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.is-open {
+            display: flex;
+        }
+        .modal-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 28px 24px;
+            max-width: 360px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+        .modal-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            padding-right: 32px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            opacity: 0.7;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            font-size: 1.25rem;
+        }
+        .modal-close:hover {
+            opacity: 1;
+        }
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .modal-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+        .modal-links a:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .modal-links a i {
+            font-size: 1.35rem;
+        }
+        .modal-links .fa-youtube {
+            color: #ff0000;
+        }
     </style>
 </head>
 <body>
@@ -202,14 +285,10 @@
                 <i class="fas fa-book"></i>
                 <span>Visit my Blog</span>
             </a>
-            <a href="https://podcasts.apple.com/us/podcast/doms-blog/id1873856519" target="_blank" rel="noopener noreferrer" class="link-card">
-                <i class="fab fa-apple"></i>
-                <span>Apple Podcasts</span>
-            </a>
-            <a href="https://open.spotify.com/show/2qqTiLtaFwCP1ySpFmkBeF" target="_blank" rel="noopener noreferrer" class="link-card">
-                <i class="fab fa-spotify"></i>
-                <span>Spotify Podcasts</span>
-            </a>
+            <button type="button" class="link-card podcast-trigger" id="podcast-trigger" aria-haspopup="dialog" aria-expanded="false">
+                <i class="fas fa-podcast"></i>
+                <span>Listen to the Podcast</span>
+            </button>
             <a href="newsletter.html" class="link-card">
                 <i class="fas fa-envelope-open-text"></i>
                 <span>Join the Newsletter</span>
@@ -254,5 +333,50 @@
             <p>&copy; 2026 Dominic Rand. All rights reserved.</p>
         </footer>
     </div>
+    
+    <div class="modal-overlay" id="podcast-modal" role="dialog" aria-modal="true" aria-labelledby="podcast-modal-title" aria-hidden="true">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <button type="button" class="modal-close" id="podcast-modal-close" aria-label="Close">×</button>
+            <h3 id="podcast-modal-title">Listen on your platform</h3>
+            <div class="modal-links">
+                <a href="https://podcasts.apple.com/us/podcast/doms-blog/id1873856519" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-apple"></i>
+                    Apple Podcasts
+                </a>
+                <a href="https://open.spotify.com/show/2qqTiLtaFwCP1ySpFmkBeF" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-spotify"></i>
+                    Spotify Podcasts
+                </a>
+                <a href="https://www.youtube.com/playlist?list=PL4vUps0jYS-2WMzyAlsP6sbglflTyhN8x" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-youtube"></i>
+                    YouTube Podcasts
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        (function () {
+            var trigger = document.getElementById('podcast-trigger');
+            var modal = document.getElementById('podcast-modal');
+            var closeBtn = document.getElementById('podcast-modal-close');
+            function openModal() {
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                if (trigger) trigger.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeModal() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+            if (trigger) trigger.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+        })();
+    </script>
 </body>
 </html>
