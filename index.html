@@ -157,9 +157,34 @@
         footer {
             text-align: center;
             margin-top: 50px;
-            padding: 20px;
+            padding: 28px 20px 24px;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
+        }
+        
+        footer .footer-contact-block {
+            margin-bottom: 22px;
+        }
+        
+        footer .footer-contact {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+        
+        footer .footer-contact:hover {
+            text-decoration: underline;
+        }
+        
+        footer .footer-contact-note {
+            margin-top: 10px;
+            font-size: 1rem;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.65);
+            max-width: 28em;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         @keyframes fadeIn {
@@ -330,6 +355,12 @@
         </div>
         
         <footer>
+            <div class="footer-contact-block">
+                <p>
+                    <a href="mailto:contact@domrand.com" class="footer-contact">contact@domrand.com</a>
+                </p>
+                <p class="footer-contact-note">Business inquiries, collaborations, and general messages.</p>
+            </div>
             <p>&copy; 2026 Dominic Rand. All rights reserved.</p>
         </footer>
     </div>
