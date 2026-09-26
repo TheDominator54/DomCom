@@ -913,6 +913,8 @@ footer p { color: var(--muted); font-size: 0.875rem; }
 
 .signup-note { margin-top: 12px; font-size: 0.8125rem; color: var(--muted); }
 
+.signup-note a { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+
 .signup-form.has-error input[type="email"] { border-color: #d64545; }
 
 .signup-form.has-error .signup-note { color: #d64545; font-weight: 600; }

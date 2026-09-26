@@ -3,6 +3,9 @@
 // embed scripts loading first (when they hadn't, the browser opened the raw endpoint in a new tab).
 (function () {
     var SUCCESS_URL = 'newsletter-success.html';
+    // MailerLite's hosted copy of the same form. Content blockers that stop requests to
+    // MailerLite from other sites still let people open this page directly.
+    var HOSTED_FORM_URL = 'https://preview.mailerlite.io/forms/2024480/175995152767124497/share';
     var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     document.querySelectorAll('.signup-form').forEach(function (form) {
@@ -12,8 +15,17 @@
         var defaultNote = note.textContent;
         var buttonLabel = button.textContent;
 
-        function setNote(message, isError) {
+        function setNote(message, isError, link) {
             note.textContent = message;
+            if (link) {
+                var a = document.createElement('a');
+                a.href = link.href;
+                a.textContent = link.text;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                note.appendChild(document.createTextNode(' '));
+                note.appendChild(a);
+            }
             form.classList.toggle('has-error', Boolean(isError));
             input.setAttribute('aria-invalid', isError ? 'true' : 'false');
         }
@@ -21,6 +33,15 @@
         function setBusy(busy) {
             button.disabled = busy;
             button.textContent = busy ? 'Subscribing…' : buttonLabel;
+        }
+
+        function showUnreachable(detail) {
+            console.warn('Newsletter signup: request to MailerLite failed.', detail);
+            setNote("Your browser couldn't reach MailerLite, the service that sends the newsletter. This is usually a content blocker.", true, {
+                href: HOSTED_FORM_URL,
+                text: 'Sign up on MailerLite instead →'
+            });
+            setBusy(false);
         }
 
         form.addEventListener('submit', function (event) {
@@ -33,7 +54,8 @@
                 return;
             }
 
-            var body = new URLSearchParams(new FormData(form));
+            var body = new URLSearchParams();
+            new FormData(form).forEach(function (value, key) { body.append(key, value); });
             body.set('fields[email]', email);
             body.set('ajax', '1');
 
@@ -45,21 +67,30 @@
                 body: body,
                 headers: { Accept: 'application/json' }
             })
-                .then(function (response) { return response.json(); })
+                .then(function (response) {
+                    return response.text().then(function (text) {
+                        try {
+                            return JSON.parse(text);
+                        } catch (e) {
+                            throw { status: response.status, body: text.slice(0, 300) };
+                        }
+                    });
+                })
                 .then(function (result) {
                     if (result && result.success) {
                         window.location.href = SUCCESS_URL;
                         return;
                     }
                     var fieldErrors = result && result.errors && result.errors.fields;
-                    var message = fieldErrors && fieldErrors.email ? fieldErrors.email[0] : 'Something went wrong. Please try again.';
-                    setNote(message, true);
+                    if (fieldErrors && fieldErrors.email) {
+                        setNote(fieldErrors.email[0], true);
+                    } else {
+                        console.warn('Newsletter signup: unexpected response from MailerLite.', result);
+                        setNote('Something went wrong. Please try again.', true);
+                    }
                     setBusy(false);
                 })
-                .catch(function () {
-                    setNote("Couldn't reach the signup service. Please try again, or email contact@domrand.com.", true);
-                    setBusy(false);
-                });
+                .catch(showUnreachable);
         });
 
         input.addEventListener('input', function () {
