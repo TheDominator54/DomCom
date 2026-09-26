@@ -869,16 +869,16 @@ footer p { color: var(--muted); font-size: 0.875rem; }
 
 .confirm .actions { margin-top: 28px; }
 
-/* ---------- MailerLite embed, themed ---------- */
-.ml-form-horizontalRow {
+/* ---------- Newsletter signup form ---------- */
+.signup-row {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.ml-input-horizontal { flex: 1; }
-
-.ml-form-embedContainer .form-control {
+.signup-form input[type="email"] {
+    flex: 1;
+    min-width: 0;
     width: 100%;
     padding: 15px 20px;
     border-radius: 999px;
@@ -891,12 +891,9 @@ footer p { color: var(--muted); font-size: 0.875rem; }
     transition: border-color 0.2s ease;
 }
 
-.ml-form-embedContainer .form-control:focus { border-color: var(--orange); }
+.signup-form input[type="email"]:focus { border-color: var(--orange); }
 
-.ml-form-embedContainer .ml-error .form-control { border-color: #d64545; }
-
-.ml-form-embedContainer button.primary,
-.ml-form-embedContainer button.loading {
+.signup-form button {
     width: 100%;
     padding: 15px 26px;
     border-radius: 999px;
@@ -907,43 +904,33 @@ footer p { color: var(--muted); font-size: 0.875rem; }
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.ml-form-embedContainer button.primary:hover { transform: translateY(-2px); }
+.signup-form button:hover { transform: translateY(-2px); }
 
-.ml-form-embedContainer button.loading { display: none; opacity: 0.7; }
+.signup-form button:disabled { opacity: 0.7; cursor: progress; transform: none; }
 
-.ml-mobileButton-horizontal { display: none; }
+.signup-note { margin-top: 12px; font-size: 0.8125rem; color: var(--muted); }
 
-.ml-form-embedPermissionsContent p { margin-top: 12px; font-size: 0.8125rem; color: var(--muted); }
+.signup-form.has-error input[type="email"] { border-color: #d64545; }
 
-.ml-form-successContent h4 { font-family: var(--display); font-size: 1.375rem; margin-bottom: 4px; }
-
-.ml-form-successContent p { color: var(--muted); }
-
-.ml-form-embedSubmitLoad {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid currentColor;
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
+.signup-form.has-error .signup-note { color: #d64545; font-weight: 600; }
 
 /* Signup on the orange band */
-.cta-band .form-control { background: #fff; border-color: #111; color: #111; }
+.cta-band .signup-form input[type="email"] { background: #fff; border-color: #111; color: #111; }
 
-.cta-band .form-control::placeholder { color: #6b665e; }
+.cta-band .signup-form input[type="email"]::placeholder { color: #6b665e; }
 
-.cta-band .form-control:focus { border-color: #111; box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18); }
+.cta-band .signup-form input[type="email"]:focus { box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18); }
 
-.cta-band .ml-form-embedContainer button.primary,
-.cta-band .ml-form-embedContainer button.loading { background: #111; color: #fff; }
+.cta-band .signup-form button { background: #111; color: #fff; }
 
-.cta-band .ml-form-embedPermissionsContent p,
-.cta-band .ml-form-successContent p { color: rgba(0, 0, 0, 0.65); }
+.cta-band .signup-note { color: rgba(0, 0, 0, 0.65); }
+
+.cta-band .signup-form.has-error input[type="email"] { border-color: #8a1111; }
+
+.cta-band .signup-form.has-error .signup-note { color: #8a1111; }
 
 .cta-band a:focus-visible, .cta-band button:focus-visible, .cta-band input:focus-visible { outline-color: #111; }
 
@@ -952,7 +939,6 @@ footer p { color: var(--muted); font-size: 0.875rem; }
     50% { opacity: 0.3; }
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -974,9 +960,8 @@ footer p { color: var(--muted); font-size: 0.875rem; }
 
 /* ---------- Larger screens ---------- */
 @media (min-width: 560px) {
-    .ml-form-horizontalRow { flex-direction: row; }
-    .ml-form-embedContainer button.primary,
-    .ml-form-embedContainer button.loading { width: auto; white-space: nowrap; }
+    .signup-row { flex-direction: row; }
+    .signup-form button { width: auto; white-space: nowrap; }
 }
 
 @media (min-width: 720px) {
