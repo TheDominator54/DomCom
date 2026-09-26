@@ -1,0 +1,10 @@
+# Newsletter signup relay for domrand.com. Deploy from this folder with: npx wrangler deploy
+name = "domrand-newsletter-signup"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+
+routes = [
+    { pattern = "domrand.com/api/subscribe", zone_name = "domrand.com" },
+    { pattern = "www.domrand.com/api/subscribe", zone_name = "domrand.com" }
+]

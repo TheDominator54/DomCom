@@ -46,7 +46,7 @@
                 <div class="signup" id="signup">
                     <p class="signup-title">Get the next one in your inbox</p>
 
-                    <!-- Newsletter signup: scripts/signup.js posts this to MailerLite -->
+                    <!-- Newsletter signup: scripts/signup.js sends this through /api/subscribe (worker/), falling back to MailerLite directly -->
                     <form class="signup-form" action="https://assets.mailerlite.com/jsonp/2024480/forms/175995152767124497/subscribe" method="post" novalidate>
                         <div class="signup-row">
                             <label for="signup-email" class="sr-only">Email address</label>
@@ -128,7 +128,7 @@
             onScroll();
         })();
     </script>
-    <script src="scripts/signup.js?v=2"></script>
+    <script src="scripts/signup.js?v=3"></script>
     <script>
         // Form-view ping for MailerLite stats; skipped inside preview frames
         if (window.self === window.top) {

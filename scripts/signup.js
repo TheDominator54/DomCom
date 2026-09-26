@@ -1,12 +1,37 @@
 // Newsletter signup for index.html and newsletter.html.
-// Posts straight to the MailerLite form endpoint, so signups don't depend on MailerLite's
-// embed scripts loading first (when they hadn't, the browser opened the raw endpoint in a new tab).
+// On domrand.com, signups go through /api/subscribe (the Cloudflare Worker in worker/),
+// which relays them to MailerLite from our own domain so content blockers don't interfere.
+// If the relay fails, the form posts to MailerLite directly, and as a last resort links
+// to MailerLite's hosted copy of the form.
 (function () {
+    var RELAY_URL = '/api/subscribe';
     var SUCCESS_URL = 'newsletter-success.html';
-    // MailerLite's hosted copy of the same form. Content blockers that stop requests to
-    // MailerLite from other sites still let people open this page directly.
     var HOSTED_FORM_URL = 'https://preview.mailerlite.io/forms/2024480/175995152767124497/share';
     var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // The relay only exists on the live site, not on a local preview
+    var relayAvailable = /(^|\.)domrand\.com$/.test(window.location.hostname);
+
+    // POST and parse the JSON reply; anything that isn't JSON counts as a failure
+    function postJson(url, body) {
+        return fetch(url, {
+            method: 'POST',
+            body: body,
+            headers: { Accept: 'application/json' }
+        }).then(function (response) {
+            return response.text().then(function (text) {
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    throw { url: url, status: response.status, body: text.slice(0, 300) };
+                }
+            });
+        });
+    }
+
+    // A real answer from MailerLite: either success or a problem with the email itself
+    function isMailerLiteAnswer(result) {
+        return Boolean(result && (result.success || (result.errors && result.errors.fields)));
+    }
 
     document.querySelectorAll('.signup-form').forEach(function (form) {
         var input = form.querySelector('input[type="email"]');
@@ -15,12 +40,12 @@
         var defaultNote = note.textContent;
         var buttonLabel = button.textContent;
 
-        function setNote(message, isError, link) {
+        function setNote(message, isError, withHostedLink) {
             note.textContent = message;
-            if (link) {
+            if (withHostedLink) {
                 var a = document.createElement('a');
-                a.href = link.href;
-                a.textContent = link.text;
+                a.href = HOSTED_FORM_URL;
+                a.textContent = 'sign up on MailerLite instead →';
                 a.target = '_blank';
                 a.rel = 'noopener';
                 note.appendChild(document.createTextNode(' '));
@@ -35,12 +60,18 @@
             button.textContent = busy ? 'Subscribing…' : buttonLabel;
         }
 
-        function showUnreachable(detail) {
-            console.warn('Newsletter signup: request to MailerLite failed.', detail);
-            setNote("Your browser couldn't reach MailerLite, the service that sends the newsletter. This is usually a content blocker.", true, {
-                href: HOSTED_FORM_URL,
-                text: 'Sign up on MailerLite instead →'
-            });
+        function showResult(result) {
+            if (result.success) {
+                window.location.href = SUCCESS_URL;
+                return;
+            }
+            setNote(result.errors.fields.email ? result.errors.fields.email[0] : 'Please check your email address.', true);
+            setBusy(false);
+        }
+
+        function showFailure(detail) {
+            console.warn('Newsletter signup failed.', detail);
+            setNote("Couldn't reach the newsletter service. Please try again in a moment, or", true, true);
             setBusy(false);
         }
 
@@ -62,35 +93,23 @@
             setNote(defaultNote, false);
             setBusy(true);
 
-            fetch(form.action, {
-                method: 'POST',
-                body: body,
-                headers: { Accept: 'application/json' }
-            })
-                .then(function (response) {
-                    return response.text().then(function (text) {
-                        try {
-                            return JSON.parse(text);
-                        } catch (e) {
-                            throw { status: response.status, body: text.slice(0, 300) };
-                        }
+            var viaRelay = relayAvailable
+                ? postJson(RELAY_URL, body).then(function (result) {
+                    if (isMailerLiteAnswer(result)) return result;
+                    throw { url: RELAY_URL, result: result };
+                })
+                : Promise.reject({ skipped: true });
+
+            viaRelay
+                .catch(function (relayError) {
+                    if (!relayError.skipped) console.warn('Newsletter signup: relay failed, trying MailerLite directly.', relayError);
+                    return postJson(form.action, body).then(function (result) {
+                        if (isMailerLiteAnswer(result)) return result;
+                        throw { url: form.action, result: result };
                     });
                 })
-                .then(function (result) {
-                    if (result && result.success) {
-                        window.location.href = SUCCESS_URL;
-                        return;
-                    }
-                    var fieldErrors = result && result.errors && result.errors.fields;
-                    if (fieldErrors && fieldErrors.email) {
-                        setNote(fieldErrors.email[0], true);
-                    } else {
-                        console.warn('Newsletter signup: unexpected response from MailerLite.', result);
-                        setNote('Something went wrong. Please try again.', true);
-                    }
-                    setBusy(false);
-                })
-                .catch(showUnreachable);
+                .then(showResult)
+                .catch(showFailure);
         });
 
         input.addEventListener('input', function () {
