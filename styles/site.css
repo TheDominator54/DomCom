@@ -869,6 +869,85 @@ footer p { color: var(--muted); font-size: 0.875rem; }
 
 .confirm .actions { margin-top: 28px; }
 
+/* ---------- Thank-you page (after confirming the subscription) ---------- */
+.thanks-hero { max-width: 780px; padding: 24px 0 40px; }
+
+.thanks-hero .confirm-icon { margin-bottom: 24px; }
+
+.thanks-hero .eyebrow { margin-bottom: 14px; }
+
+.thanks-reply {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 20px;
+    color: var(--muted);
+}
+
+.thanks-reply i { color: var(--orange); }
+
+.thanks-grid .tile { display: flex; flex-direction: column; }
+
+.thanks-grid .mini-covers { margin: 4px 0 18px; }
+
+.tile-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.tile-link span { border-bottom: 2px solid currentColor; }
+
+.tile-orange .tile-link span { border-bottom-color: #111; }
+
+.tile ul.link-list { gap: 0; margin-bottom: 4px; }
+
+.link-list li { display: block; }
+
+.tile ul.link-list li::before { content: none; }
+
+.link-list a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.link-list a:hover { color: var(--orange); }
+
+.link-list small { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+
+.tile-dark .platforms { margin-bottom: 18px; }
+
+.tile-dark .follow { color: var(--on-dark); }
+
+.share-tile {
+    margin: 16px 0 56px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+}
+
+.share-tile h2 { margin-bottom: 6px; }
+
+.share-tile p { color: var(--muted); }
+
+.share-status { font-size: 0.875rem; color: var(--muted); min-height: 1.2em; }
+
+@media (min-width: 960px) {
+    .thanks-hero { padding-top: 48px; }
+}
+
 /* ---------- Newsletter signup form ---------- */
 .signup-row {
     display: flex;

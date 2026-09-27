@@ -1,4 +1,8 @@
 # Newsletter signup relay for domrand.com. Deploy from this folder with: npx wrangler deploy
+#
+# To use MailerLite's API (recommended), set the token as a secret, never in this file:
+#   npx wrangler secret put MAILERLITE_API_TOKEN
+# and turn on "Double opt-in for API and integrations" in MailerLite's subscribe settings.
 name = "domrand-newsletter-signup"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
@@ -8,3 +12,7 @@ routes = [
     { pattern = "domrand.com/api/subscribe", zone_name = "domrand.com" },
     { pattern = "www.domrand.com/api/subscribe", zone_name = "domrand.com" }
 ]
+
+[vars]
+# The MailerLite group the embedded form adds people to: its ID, or its exact name
+MAILERLITE_GROUP = "Newsletter"
