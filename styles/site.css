@@ -792,6 +792,8 @@ footer p { color: var(--muted); font-size: 0.875rem; }
 
 .tile .coda { margin-top: 16px; color: var(--muted); }
 
+.tile p a { text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+
 .tile-orange { background: var(--orange); color: #111; }
 
 .tile-orange .coda { color: rgba(0, 0, 0, 0.65); }
